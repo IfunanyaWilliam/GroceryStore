@@ -1,9 +1,9 @@
 ﻿namespace GroceryStore
 {
     public class Product
-    {   
+    {
         //This constructor implements polymophism
-        public Product(string productName, int quantity = 0) 
+        public Product(string productName, int quantity = 0)
         {
             Id = Guid.NewGuid().ToString();
             Name = productName;
@@ -16,14 +16,14 @@
         public string Name { get; set; }
 
         public decimal Price { get; set; }
-        
+
         public int Quantity { get; set; }
 
-       
+
     }
-
-
-
 }
+
+
+    
 
 

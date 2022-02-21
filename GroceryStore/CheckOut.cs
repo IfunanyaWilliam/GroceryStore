@@ -1,31 +1,30 @@
 ﻿namespace GroceryStore
 {
-
+ 
     public class CheckOut
     {
 
-        private readonly Store _store;
+        private readonly IStore _store;
 
-        public CheckOut(Store store)
-        {
+        public CheckOut(IStore store)
+        { 
             _store = store; 
         }
              
         
-
-    
         //GenerateReceipt Method
-
+        
 
         public decimal CalculateDiscount(string id, double discountRate)
         {
-                var discount = 0m; //discount variable is a decimal because the m appended to it
+            //discount variable is a decimal because the m appended to it
+            var discount = 0m; 
                 foreach (var item in _store.Products)
                 {
                     if (item.Id == id)
                     {
-                        discount = item.Price - (item.Price * (decimal)discountRate);  //convert double to a decimal since decimal is more accurate
-
+                    //convert double to a decimal since decimal is more accurate
+                    discount = item.Price - (item.Price * (decimal)discountRate);  
                     }
                 }
                 return discount;

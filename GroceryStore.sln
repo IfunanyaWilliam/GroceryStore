@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryStore", "GroceryStore\GroceryStore.csproj", "{CD93393A-99EB-4691-BE4F-83256F246C9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryStore.UI", "GroceryStore.UI\GroceryStore.UI.csproj", "{A0A7026A-8834-438B-B4C2-C8981927206E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryStoreUserInterface", "GroceryStoreUserInterface\GroceryStoreUserInterface.csproj", "{186FB9B2-63CB-4C1C-BE0C-6E8CA6F33743}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{CD93393A-99EB-4691-BE4F-83256F246C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD93393A-99EB-4691-BE4F-83256F246C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD93393A-99EB-4691-BE4F-83256F246C9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0A7026A-8834-438B-B4C2-C8981927206E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0A7026A-8834-438B-B4C2-C8981927206E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0A7026A-8834-438B-B4C2-C8981927206E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0A7026A-8834-438B-B4C2-C8981927206E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186FB9B2-63CB-4C1C-BE0C-6E8CA6F33743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186FB9B2-63CB-4C1C-BE0C-6E8CA6F33743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186FB9B2-63CB-4C1C-BE0C-6E8CA6F33743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186FB9B2-63CB-4C1C-BE0C-6E8CA6F33743}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
