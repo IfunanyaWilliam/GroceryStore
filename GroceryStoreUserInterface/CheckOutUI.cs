@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GroceryStore;
+﻿using GroceryStore;
+using GroceryStore.Contracts;
 
 
 namespace GroceryStoreUserInterface
@@ -18,11 +10,24 @@ namespace GroceryStoreUserInterface
 
         public RoleType roleType;
 
-        public List<Product> CartItems { get; set; } = new List<Product>();
-
         public int ItemCount { get; set; }
 
         public int AddREmoveDisplayCounter { get; set; }
+
+        private Database databaseObject;
+
+        public Database DatabaseObject
+        {
+            get {
+                if(databaseObject == null)
+                    {
+                        databaseObject = new Database();
+                    }
+                return databaseObject;
+                }
+            set { databaseObject = value; }
+        }
+
 
         public CheckOutUI(IStore store, RoleType role)
         {
@@ -36,28 +41,9 @@ namespace GroceryStoreUserInterface
             roleType = role;
             CheckRole();
             //CheckOutBox.Text = Role.RoleType.Manager.ToString(); 
-
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Product_Id_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CheckOutBox_TextChanged(object sender, EventArgs e)
-        {
-            //CheckOutBox
-        }
 
         private void RemoveProduct_Click(object sender, EventArgs e)
         {
@@ -115,6 +101,7 @@ namespace GroceryStoreUserInterface
         private void EnterItem_Click(object sender, EventArgs e)
         {
             //CheckOutBox
+            var cartitem = _store.CartItems;
             string name = "";
             decimal itemPrice = 0;
             int quantity = 0;
@@ -127,8 +114,8 @@ namespace GroceryStoreUserInterface
                 //displayText += $"Name: {product.Name} \n Price: #{product.Price} \n Quantity: {product.Quantity} \n Id: {product.Id}\n\n";
                 if(product.Id == Product_Id.Text)
                 {
-                    name        = product.Name;
-                    itemPrice   = product.Price;
+                    
+                    
                     quantity    = Convert.ToInt32(DisplayCount.Text);
                 }
                 subTotal = product.Price * quantity;
@@ -138,9 +125,6 @@ namespace GroceryStoreUserInterface
             DisplayCount.Text = "";
             Product_Id.Text = "";
             ItemCount = 0;
-
-
-
         }
 
         private void AddREmoveDisplay_TextChanged(object sender, EventArgs e)
@@ -158,6 +142,30 @@ namespace GroceryStoreUserInterface
                 AddREmoveDisplay.Text = ItemCount.ToString();
 
             }
+        }
+
+        public decimal CalculateDiscount(string id, double discountRate)
+        {
+            //discount variable is a decimal because the m appended to it
+            var discount = 0m;
+            foreach (var item in _store.Products)
+            {
+                if (item.Id == id)
+                {
+                    //convert double to a decimal since decimal is more accurate
+                    discount = item.Price - (item.Price * (decimal)discountRate);
+                }
+            }
+            return discount;
+
+        }
+
+        public decimal CalculateVAT(decimal totalPrice)
+        {
+            decimal vattedPrice = 0m;
+            //VAT comes as a decimal percentage eg 0.75% so divide the 0.75 by 100
+            vattedPrice = totalPrice + (totalPrice * (decimal)_store.VAT / 100);
+            return vattedPrice;
         }
 
 
@@ -178,76 +186,22 @@ namespace GroceryStoreUserInterface
 
         }
 
-        //Add new product with Name, Quantity, Price. Call DisplayProduct() to display updated list of Product
-        private void AddRemoveBtn_Click(object sender, EventArgs e)
-        {
-            var prod = new Product(AddProductField.Text, int.Parse(AddREmoveDisplay.Text)) { Price = (decimal.Parse(ProductPriceField.Text)) };
-            _store.Products.Add(prod);
-            DisplayProducts();
-            AddProductField.Text = "";
-            AddREmoveDisplay.Text = "";
-            ProductPriceField.Text = "";
-        }
-
-        private void RemoveProductBtn_Click(object sender, EventArgs e)
-        {   
-            
-        }
-
-        private void ProductPriceField_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddREmoveDisplay_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddRemoveBtn_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RemoveProductField_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddItem_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddProductField_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddProductLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddProductLabel_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AddREmoveDisplay_TextChanged_2(object sender, EventArgs e)
-        {
-
-        }
-
         private void AddRemoveBtn_Click_2(object sender, EventArgs e)
         {
-            var prod = new Product(AddProductField.Text, int.Parse(AddREmoveDisplay.Text)) { Price = (decimal.Parse(ProductPriceField.Text)) };
-
-            _store.Products.Add(prod);
-            DisplayProducts();
-            AddProductField.Text = "";
-            AddREmoveDisplay.Text = "";
-            ProductPriceField.Text = ""; 
+            if(AddREmoveDisplay.Text == "" || ProductPriceField.Text == "")
+            {
+                MessageBox.Show("Pleaase add product Price or Quantity");
+                ProductPriceField.Focus();  
+            }
+            else
+            {
+                var productId = _store.AddStockToProduct(AddProductField.Text, decimal.Parse(ProductPriceField.Text), int.Parse(AddREmoveDisplay.Text));
+                DisplayProducts();
+                DatabaseObject.AddNewProduct(productId);
+                AddProductField.Text = "";
+                AddREmoveDisplay.Text = "";
+                ProductPriceField.Text = "";
+            }
         }
 
         private void RemoveProductField_Click_2(object sender, EventArgs e)
@@ -268,32 +222,9 @@ namespace GroceryStoreUserInterface
             AddREmoveDisplay.Text = AddREmoveDisplayCounter.ToString(); 
         }
 
-        private void AddProductField_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ProductPriceField_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RemoveProductBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void RemoveProductBtn_Click_1(object sender, EventArgs e)
         {
-            //Collections cannot be changed in a loop
-            int check = 0;
-            
-            Product productIdCheck = _store.GetProduct(RemoveProductBox.Text);
-            if (productIdCheck != null)
-            {
-                check = _store.Products.IndexOf(productIdCheck);
-            }
-            _store.Products.RemoveAt(check);
+            _store.RemoveProduct(RemoveProductBox.Text);
             DisplayProducts();
             RemoveProductBox.Text = "";
         }
@@ -313,5 +244,71 @@ namespace GroceryStoreUserInterface
             }
            
         }
+
+
+        //private void panel1_Paint(object sender, PaintEventArgs e)
+        //{
+
+        //}
+
+        //private void CheckOutBox_TextChanged(object sender, EventArgs e)
+        //{
+        //    //CheckOutBox
+        //}
+
+        ////Add new product with Name, Quantity, Price. Call DisplayProduct() to display updated list of Product
+        //private void AddRemoveBtn_Click(object sender, EventArgs e)
+        //{
+
+        //    //var prod = new Product(AddProductField.Text, int.Parse(AddREmoveDisplay.Text)) { Price = (decimal.Parse(ProductPriceField.Text)) };
+        //    //_store.Products.Add(prod);
+        //    //DisplayProducts();
+        //    //AddProductField.Text = "";
+        //    //AddREmoveDisplay.Text = "";
+        //    //ProductPriceField.Text = "";
+
+
+        //}
+
+        //private void RemoveProductBtn_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void ProductPriceField_TextChanged(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void AddREmoveDisplay_TextChanged_1(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void AddRemoveBtn_Click_1(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void RemoveProductField_Click_1(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void AddItem_Click_1(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void AddProductField_TextChanged(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void AddProductLabel_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
     }
 }

@@ -1,28 +1,14 @@
-﻿namespace GroceryStore
-{
+﻿using GroceryStore.Contracts;
 
-
-    public interface IStore
-    {
-        List<Product> Products { get; set; }
-        double VAT { get; }
-         
-         
-        void AddStockToProduct(string id, int numberChange);
-        string CreateProduct(string nameOfProduct, int quantity = 0);
-        void RemoveStockFromProduct(string id, int numberChange);
-        void SetVAT(double newVAT);
-        void UpdateProductPrice(string id, decimal newPrice);
-
-        Product GetProduct(string id);
-    }
-
- 
-        
+namespace GroceryStore
+{  
 
     public class Store : IStore
     {
         public List<Product> Products { get; set; } = new List<Product>();
+
+        public List<Product> CartItems { get; set; } = new List<Product>();
+
         public double VAT { get; private set; }
 
         public void UpdateProductPrice(string id, decimal newPrice)
@@ -44,42 +30,46 @@
         }
 
 
-        public void AddStockToProduct(string id, int numberChange)
+        public void RemoveProduct(string id)
         {
+            int check = 0;
             foreach (var item in Products)
             {
-                if (item.Id == id) { item.Quantity += numberChange; }
+                if (item.Id == id) 
+                {
+                    check = Products.IndexOf(item);
+                }
             }
+            Products.RemoveAt(check);
         }
 
 
-        public void RemoveStockFromProduct(string id, int numberChange)
+        /// <summary>
+        /// A method that creates a new product
+        /// </summary>
+        /// <param name="nameOfProduct"></param>
+        /// <param name="price"></param>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
+        public Product AddStockToProduct(string nameOfProduct, decimal price, int quantity = 0)
         {
-            foreach (var item in Products)
-            {
-                if (item.Id == id) { item.Quantity -= numberChange; }
-            }
-        }
-
-
-        //Polymophism of CreateProduct
-        public string CreateProduct(string nameOfProduct, int quantity = 0)
-        {
-            Product prod = new Product(nameOfProduct, quantity);
+            Product prod = new Product(nameOfProduct, quantity) { Price = price};
             Products.Add(prod);
-            return prod.Id;
+            return prod;
         }
 
 
-        public Product GetProduct(string id)
+        public Product GetProduct()
         {
+            Product result = new Product();
             foreach (var item in Products)
             {
-                if (item.Id == id) { return item; }
+                
             }
-            return null;
+            return result;
         }
 
+       
     }
 
 }

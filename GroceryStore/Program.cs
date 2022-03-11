@@ -16,8 +16,6 @@
             //Console.WriteLine("The Product ID: {0}", product.Id);
 
             //var id = product.Id;
-
-            
             
         }
     }

@@ -14,8 +14,12 @@ namespace GroceryStoreUserInterface
         {
             switch (nameOf)
             {
-                case "IStore":
+                case "Store":
                     return new Store();
+                    
+                case "Data":
+                    return new Database();
+                    
                 default:
                     return null;
             }

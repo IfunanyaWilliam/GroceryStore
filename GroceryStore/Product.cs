@@ -1,12 +1,24 @@
-﻿namespace GroceryStore
+﻿using GroceryStore.Contracts;
+namespace GroceryStore
 {
-    public class Product
+    
+
+    public class Product : IProduct
     {
         //This constructor implements polymophism
-        public Product(string productName, int quantity = 0)
+        public Product()
         {
             Id = Guid.NewGuid().ToString();
-            Name = productName;
+        }
+
+        public Product(string id)
+        {
+            Id = id;
+        }
+        public Product(string name, int quantity)
+        {
+            Id = Guid.NewGuid().ToString();
+            Name = name;
             Quantity = quantity;
         }
 

@@ -1,4 +1,7 @@
-﻿namespace GroceryStore
+﻿using GroceryStore;
+using GroceryStore.Contracts;
+
+namespace GroceryStore
 {
  
     public class CheckOut
@@ -24,7 +27,7 @@
                     if (item.Id == id)
                     {
                     //convert double to a decimal since decimal is more accurate
-                    discount = item.Price - (item.Price * (decimal)discountRate);  
+                   discount = item.Price - (item.Price * (decimal)discountRate);  
                     }
                 }
                 return discount;

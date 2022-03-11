@@ -86,7 +86,6 @@
             this.Product_Id.PlaceholderText = "Enter Product Id";
             this.Product_Id.Size = new System.Drawing.Size(347, 30);
             this.Product_Id.TabIndex = 2;
-            this.Product_Id.TextChanged += new System.EventHandler(this.Product_Id_TextChanged);
             // 
             // AddProductSale
             // 
@@ -103,7 +102,7 @@
             // 
             // RemoveProduct
             // 
-            this.RemoveProduct.BackColor = System.Drawing.Color.Red;
+            this.RemoveProduct.BackColor = System.Drawing.Color.IndianRed;
             this.RemoveProduct.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.RemoveProduct.Location = new System.Drawing.Point(124, 385);
             this.RemoveProduct.Name = "RemoveProduct";
@@ -121,11 +120,10 @@
             this.CheckOutBox.ReadOnly = true;
             this.CheckOutBox.Size = new System.Drawing.Size(522, 507);
             this.CheckOutBox.TabIndex = 5;
-            this.CheckOutBox.TextChanged += new System.EventHandler(this.CheckOutBox_TextChanged);
             // 
             // PrintReceipt
             // 
-            this.PrintReceipt.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.PrintReceipt.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.PrintReceipt.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.PrintReceipt.Location = new System.Drawing.Point(1059, 606);
             this.PrintReceipt.Name = "PrintReceipt";
@@ -153,11 +151,10 @@
             this.DisplayCount.Size = new System.Drawing.Size(40, 34);
             this.DisplayCount.TabIndex = 8;
             this.DisplayCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.DisplayCount.TextChanged += new System.EventHandler(this.DisplayCount_TextChanged);
             // 
             // EnterItem
             // 
-            this.EnterItem.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.EnterItem.BackColor = System.Drawing.Color.IndianRed;
             this.EnterItem.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.EnterItem.Location = new System.Drawing.Point(310, 385);
             this.EnterItem.Name = "EnterItem";
@@ -176,7 +173,6 @@
             this.ProductList.Size = new System.Drawing.Size(479, 230);
             this.ProductList.TabIndex = 10;
             this.ProductList.Text = "";
-            this.ProductList.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // Cart
             // 
@@ -208,7 +204,7 @@
             // 
             // RemoveProductBtn
             // 
-            this.RemoveProductBtn.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.RemoveProductBtn.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.RemoveProductBtn.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.RemoveProductBtn.Location = new System.Drawing.Point(418, 158);
             this.RemoveProductBtn.Name = "RemoveProductBtn";
@@ -235,7 +231,6 @@
             this.RemoveProductBox.Name = "RemoveProductBox";
             this.RemoveProductBox.Size = new System.Drawing.Size(247, 37);
             this.RemoveProductBox.TabIndex = 33;
-            this.RemoveProductBox.TextChanged += new System.EventHandler(this.RemoveProductBox_TextChanged);
             // 
             // ProductPriceField
             // 
@@ -244,7 +239,6 @@
             this.ProductPriceField.Name = "ProductPriceField";
             this.ProductPriceField.Size = new System.Drawing.Size(106, 39);
             this.ProductPriceField.TabIndex = 32;
-            this.ProductPriceField.TextChanged += new System.EventHandler(this.ProductPriceField_TextChanged_1);
             // 
             // AddREmoveDisplay
             // 
@@ -255,11 +249,10 @@
             this.AddREmoveDisplay.Size = new System.Drawing.Size(32, 39);
             this.AddREmoveDisplay.TabIndex = 31;
             this.AddREmoveDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.AddREmoveDisplay.TextChanged += new System.EventHandler(this.AddREmoveDisplay_TextChanged_2);
             // 
             // AddRemoveBtn
             // 
-            this.AddRemoveBtn.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.AddRemoveBtn.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.AddRemoveBtn.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.AddRemoveBtn.Location = new System.Drawing.Point(106, 188);
             this.AddRemoveBtn.Name = "AddRemoveBtn";
@@ -300,7 +293,6 @@
             this.AddProductField.Name = "AddProductField";
             this.AddProductField.Size = new System.Drawing.Size(295, 34);
             this.AddProductField.TabIndex = 27;
-            this.AddProductField.TextChanged += new System.EventHandler(this.AddProductField_TextChanged_1);
             // 
             // AddProductLabel
             // 
@@ -312,11 +304,10 @@
             this.AddProductLabel.Size = new System.Drawing.Size(157, 31);
             this.AddProductLabel.TabIndex = 26;
             this.AddProductLabel.Text = "Add Product";
-            this.AddProductLabel.Click += new System.EventHandler(this.AddProductLabel_Click_1);
             // 
             // LogOutBtn
             // 
-            this.LogOutBtn.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.LogOutBtn.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.LogOutBtn.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.LogOutBtn.Location = new System.Drawing.Point(1084, 33);
             this.LogOutBtn.Name = "LogOutBtn";
@@ -328,7 +319,7 @@
             // 
             // ClearCartBtn
             // 
-            this.ClearCartBtn.BackColor = System.Drawing.Color.Red;
+            this.ClearCartBtn.BackColor = System.Drawing.Color.IndianRed;
             this.ClearCartBtn.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ClearCartBtn.Location = new System.Drawing.Point(873, 33);
             this.ClearCartBtn.Name = "ClearCartBtn";
@@ -340,7 +331,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.label2.Font = new System.Drawing.Font("Segoe UI Black", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(699, 606);
             this.label2.Name = "label2";
@@ -361,6 +352,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1256, 721);
             this.Controls.Add(this.TotalTextBox);
             this.Controls.Add(this.label2);
@@ -381,7 +373,6 @@
             this.Controls.Add(this.textBox1);
             this.Name = "CheckOutUI";
             this.Text = "Form2";
-            this.Load += new System.EventHandler(this.Form2_Load);
             this.AdminBox.ResumeLayout(false);
             this.AdminBox.PerformLayout();
             this.ResumeLayout(false);

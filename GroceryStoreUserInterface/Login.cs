@@ -1,5 +1,6 @@
 using System;
 using GroceryStore;
+using GroceryStore.Contracts;
 
 
 namespace GroceryStoreUserInterface
