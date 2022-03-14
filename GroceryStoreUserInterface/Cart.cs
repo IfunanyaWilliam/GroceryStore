@@ -8,13 +8,14 @@ namespace GroceryStoreUserInterface
 {
     public class Cart
     {
-        public Cart(string id,string name, decimal price, int quantity)
-        {
-            Id = id;
-            Name = name;
-            Price = price;
-            Quantity = quantity;
-        }
+        //public Cart(string id,string name, decimal price, int quantity, decimal subtotal)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    Price = price;
+        //    Quantity = quantity; 
+        //    SubTotal = subtotal;
+        //}
 
         public string Id { get; set; }  
 
@@ -23,6 +24,7 @@ namespace GroceryStoreUserInterface
         public decimal Price { get; set; }
 
         public int Quantity { get; set; }
+        public decimal SubTotal { get; set; }   
 
     }
 }

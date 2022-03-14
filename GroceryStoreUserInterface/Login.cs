@@ -24,24 +24,8 @@ namespace GroceryStoreUserInterface
         string staffName        = "staff1";
         string adminName        = "admin1"; 
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-             
-        }
-
-        private void Password_label_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
-        }
-
-        private void Username_textBox_TextChanged(object sender, EventArgs e)
-        {
-            
 
         }
 
@@ -70,16 +54,6 @@ namespace GroceryStoreUserInterface
                 Password_Text.Text = "";
             }
                      
-
-        }
-
-        private void Password_Text_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void errorMessage_TextChanged(object sender, EventArgs e)
-        {
 
         }
 

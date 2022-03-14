@@ -12,7 +12,7 @@ namespace GroceryStore
     public class Database : IStore 
     {
         SqlConnection   conn;
-        SqlCommand      cmd;
+        SqlCommand      com;
         SqlDataReader   reader;
 
         private readonly string _connString = @"Data Source = LAPTOP-MLKDD7UQ\SQLEXPRESS; Initial Catalog = GroceryStore; Integrated Security = True";
@@ -32,9 +32,28 @@ namespace GroceryStore
             Products.Add(prod);
             return prod;
         }
-        public void RemoveProduct(string id)
+        public void RemoveProduct(string prodID)
         {
+            int prodIndex = 0;
+            foreach (var item in Products)
+            {
+                if (item.Id == prodID)
+                {
+                    prodIndex = Products.IndexOf(item);
+                }
+            }
 
+            Products.RemoveAt(prodIndex);
+            string removeProd = $"delete from tblProduct where Id = '{prodID}'";
+            using (conn = new SqlConnection(_connString))
+            {
+                conn.Open();
+                com = new SqlCommand(removeProd, conn);
+                com.ExecuteNonQuery();
+                conn.Close();
+            }
+           
+            
         }
 
         public void SetVAT(double newVAT)
@@ -43,7 +62,7 @@ namespace GroceryStore
         }
         public void UpdateProductPrice(string id, decimal newPrice)
         {
-
+           
         }
 
         /// <summary>
@@ -56,9 +75,9 @@ namespace GroceryStore
             string selectProd = "select * from tblProduct where Id = 'id'";
             using (conn = new SqlConnection(_connString))
             {
-                cmd = new SqlCommand(selectProd, conn);
+                com = new SqlCommand(selectProd, conn);
                 conn.Open();
-                reader = cmd.ExecuteReader();
+                reader = com.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -75,14 +94,14 @@ namespace GroceryStore
             return null;
         }
 
-        public IList<Product> GeAlltProduct()
+        public void GeAlltProduct()
         {
             string selectProd = "select * from tblProduct";
             using (conn = new SqlConnection(_connString))
             {
-                cmd = new SqlCommand(selectProd, conn);
+                com = new SqlCommand(selectProd, conn);
                 conn.Open();
-                reader = cmd.ExecuteReader();
+                reader = com.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -90,28 +109,51 @@ namespace GroceryStore
                         Products.Add(new Product(reader.GetString(0))
                         {
                             Name = reader.GetString(1),
-                            Quantity = reader.GetInt32(2),
-                            Price = reader.GetInt32(3),
+                            Price = reader.GetInt32(2),
+                            Quantity = reader.GetInt32(3),
+                            
                         });
                     }
                 }
             }
-            return Products;
         }
 
         public void AddNewProduct(Product prod)
         {
            
             {
-                string insertQuery = $"insert into tblProduct values ('{prod.Id}', '{prod.Name}', {prod.Quantity}, {prod.Price})";
+                string insertQuery = $"insert into tblProduct values ('{prod.Id}', '{prod.Name}', {prod.Price}, {prod.Quantity})";
                 using (conn = new SqlConnection(_connString))
                 {
-                    cmd = new SqlCommand(insertQuery, conn);
+                    com = new SqlCommand(insertQuery, conn);
                     conn.Open();
-                    cmd.ExecuteNonQuery();
+                    com.ExecuteNonQuery();
                     conn.Close();
                 }
             }
         }
+
+        public bool UpdateProdQuantity(string id, int quantity)
+        {
+            string updateProd = $"update tblProduct set Quantity = @Quantity where Id = @Id";
+            try
+            {
+                using (conn = new SqlConnection(_connString))
+                {
+                    com = new SqlCommand(updateProd, conn);
+                    com.Parameters.AddWithValue("@Quantity", quantity);
+                    com.Parameters.AddWithValue("@Id", id);
+                    conn.Open();
+                    com.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

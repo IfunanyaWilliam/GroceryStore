@@ -7,8 +7,6 @@ namespace GroceryStore
     {
         public List<Product> Products { get; set; } = new List<Product>();
 
-        public List<Product> CartItems { get; set; } = new List<Product>();
-
         public double VAT { get; private set; }
 
         public void UpdateProductPrice(string id, decimal newPrice)

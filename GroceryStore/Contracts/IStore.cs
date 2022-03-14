@@ -9,7 +9,7 @@ namespace GroceryStore.Contracts
     public interface IStore
     {
         public List<Product> Products { get; set; }
-        public List<Product> CartItems { get; set; }
+        //public List<Product> CartItems { get; set; }
         public double VAT { get; }
 
 

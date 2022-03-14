@@ -37,7 +37,7 @@
             this.PrintReceipt = new System.Windows.Forms.Button();
             this.LoginMessage = new System.Windows.Forms.TextBox();
             this.DisplayCount = new System.Windows.Forms.TextBox();
-            this.EnterItem = new System.Windows.Forms.Button();
+            this.AddProdToCart = new System.Windows.Forms.Button();
             this.ProductList = new System.Windows.Forms.RichTextBox();
             this.Cart = new System.Windows.Forms.Label();
             this.AdminBox = new System.Windows.Forms.GroupBox();
@@ -46,7 +46,7 @@
             this.RemoveProductBox = new System.Windows.Forms.TextBox();
             this.ProductPriceField = new System.Windows.Forms.TextBox();
             this.AddREmoveDisplay = new System.Windows.Forms.TextBox();
-            this.AddRemoveBtn = new System.Windows.Forms.Button();
+            this.AddProductBtn = new System.Windows.Forms.Button();
             this.RemoveProductField = new System.Windows.Forms.Button();
             this.AddItem = new System.Windows.Forms.Button();
             this.AddProductField = new System.Windows.Forms.TextBox();
@@ -55,7 +55,14 @@
             this.ClearCartBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.TotalTextBox = new System.Windows.Forms.TextBox();
+            this.CartGridView = new System.Windows.Forms.DataGridView();
+            this.serial_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdminBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CartGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -114,18 +121,18 @@
             // 
             // CheckOutBox
             // 
-            this.CheckOutBox.Location = new System.Drawing.Point(697, 81);
+            this.CheckOutBox.Location = new System.Drawing.Point(604, 81);
             this.CheckOutBox.Multiline = true;
             this.CheckOutBox.Name = "CheckOutBox";
             this.CheckOutBox.ReadOnly = true;
-            this.CheckOutBox.Size = new System.Drawing.Size(522, 507);
+            this.CheckOutBox.Size = new System.Drawing.Size(645, 507);
             this.CheckOutBox.TabIndex = 5;
             // 
             // PrintReceipt
             // 
             this.PrintReceipt.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.PrintReceipt.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PrintReceipt.Location = new System.Drawing.Point(1059, 606);
+            this.PrintReceipt.Location = new System.Drawing.Point(1044, 606);
             this.PrintReceipt.Name = "PrintReceipt";
             this.PrintReceipt.Size = new System.Drawing.Size(160, 47);
             this.PrintReceipt.TabIndex = 6;
@@ -152,17 +159,17 @@
             this.DisplayCount.TabIndex = 8;
             this.DisplayCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // EnterItem
+            // AddProdToCart
             // 
-            this.EnterItem.BackColor = System.Drawing.Color.IndianRed;
-            this.EnterItem.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.EnterItem.Location = new System.Drawing.Point(310, 385);
-            this.EnterItem.Name = "EnterItem";
-            this.EnterItem.Size = new System.Drawing.Size(94, 48);
-            this.EnterItem.TabIndex = 9;
-            this.EnterItem.Text = "Enter";
-            this.EnterItem.UseVisualStyleBackColor = false;
-            this.EnterItem.Click += new System.EventHandler(this.EnterItem_Click);
+            this.AddProdToCart.BackColor = System.Drawing.Color.IndianRed;
+            this.AddProdToCart.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.AddProdToCart.Location = new System.Drawing.Point(310, 385);
+            this.AddProdToCart.Name = "AddProdToCart";
+            this.AddProdToCart.Size = new System.Drawing.Size(150, 48);
+            this.AddProdToCart.TabIndex = 9;
+            this.AddProdToCart.Text = "Add To Cart";
+            this.AddProdToCart.UseVisualStyleBackColor = false;
+            this.AddProdToCart.Click += new System.EventHandler(this.AddProdToCart_Click);
             // 
             // ProductList
             // 
@@ -191,14 +198,14 @@
             this.AdminBox.Controls.Add(this.RemoveProductBox);
             this.AdminBox.Controls.Add(this.ProductPriceField);
             this.AdminBox.Controls.Add(this.AddREmoveDisplay);
-            this.AdminBox.Controls.Add(this.AddRemoveBtn);
+            this.AdminBox.Controls.Add(this.AddProductBtn);
             this.AdminBox.Controls.Add(this.RemoveProductField);
             this.AdminBox.Controls.Add(this.AddItem);
             this.AdminBox.Controls.Add(this.AddProductField);
             this.AdminBox.Controls.Add(this.AddProductLabel);
             this.AdminBox.Location = new System.Drawing.Point(18, 467);
             this.AdminBox.Name = "AdminBox";
-            this.AdminBox.Size = new System.Drawing.Size(652, 242);
+            this.AdminBox.Size = new System.Drawing.Size(580, 242);
             this.AdminBox.TabIndex = 15;
             this.AdminBox.TabStop = false;
             // 
@@ -206,7 +213,7 @@
             // 
             this.RemoveProductBtn.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.RemoveProductBtn.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.RemoveProductBtn.Location = new System.Drawing.Point(418, 158);
+            this.RemoveProductBtn.Location = new System.Drawing.Point(366, 122);
             this.RemoveProductBtn.Name = "RemoveProductBtn";
             this.RemoveProductBtn.Size = new System.Drawing.Size(129, 40);
             this.RemoveProductBtn.TabIndex = 35;
@@ -218,7 +225,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(400, 49);
+            this.label1.Location = new System.Drawing.Point(344, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(184, 30);
             this.label1.TabIndex = 34;
@@ -227,7 +234,7 @@
             // RemoveProductBox
             // 
             this.RemoveProductBox.Font = new System.Drawing.Font("Segoe UI", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.RemoveProductBox.Location = new System.Drawing.Point(368, 98);
+            this.RemoveProductBox.Location = new System.Drawing.Point(324, 69);
             this.RemoveProductBox.Name = "RemoveProductBox";
             this.RemoveProductBox.Size = new System.Drawing.Size(247, 37);
             this.RemoveProductBox.TabIndex = 33;
@@ -235,7 +242,7 @@
             // ProductPriceField
             // 
             this.ProductPriceField.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ProductPriceField.Location = new System.Drawing.Point(204, 126);
+            this.ProductPriceField.Location = new System.Drawing.Point(179, 126);
             this.ProductPriceField.Name = "ProductPriceField";
             this.ProductPriceField.Size = new System.Drawing.Size(106, 39);
             this.ProductPriceField.TabIndex = 32;
@@ -243,30 +250,30 @@
             // AddREmoveDisplay
             // 
             this.AddREmoveDisplay.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.AddREmoveDisplay.Location = new System.Drawing.Point(147, 126);
+            this.AddREmoveDisplay.Location = new System.Drawing.Point(131, 126);
             this.AddREmoveDisplay.Name = "AddREmoveDisplay";
             this.AddREmoveDisplay.ReadOnly = true;
             this.AddREmoveDisplay.Size = new System.Drawing.Size(32, 39);
             this.AddREmoveDisplay.TabIndex = 31;
             this.AddREmoveDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // AddRemoveBtn
+            // AddProductBtn
             // 
-            this.AddRemoveBtn.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.AddRemoveBtn.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.AddRemoveBtn.Location = new System.Drawing.Point(106, 188);
-            this.AddRemoveBtn.Name = "AddRemoveBtn";
-            this.AddRemoveBtn.Size = new System.Drawing.Size(108, 43);
-            this.AddRemoveBtn.TabIndex = 30;
-            this.AddRemoveBtn.Text = "Enter";
-            this.AddRemoveBtn.UseVisualStyleBackColor = false;
-            this.AddRemoveBtn.Click += new System.EventHandler(this.AddRemoveBtn_Click_2);
+            this.AddProductBtn.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.AddProductBtn.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.AddProductBtn.Location = new System.Drawing.Point(106, 188);
+            this.AddProductBtn.Name = "AddProductBtn";
+            this.AddProductBtn.Size = new System.Drawing.Size(108, 43);
+            this.AddProductBtn.TabIndex = 30;
+            this.AddProductBtn.Text = "Enter";
+            this.AddProductBtn.UseVisualStyleBackColor = false;
+            this.AddProductBtn.Click += new System.EventHandler(this.AddProductBtn_Click_2);
             // 
             // RemoveProductField
             // 
             this.RemoveProductField.BackColor = System.Drawing.Color.Green;
             this.RemoveProductField.Font = new System.Drawing.Font("Segoe UI Black", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.RemoveProductField.Location = new System.Drawing.Point(79, 122);
+            this.RemoveProductField.Location = new System.Drawing.Point(66, 122);
             this.RemoveProductField.Name = "RemoveProductField";
             this.RemoveProductField.Size = new System.Drawing.Size(48, 43);
             this.RemoveProductField.TabIndex = 29;
@@ -291,7 +298,7 @@
             this.AddProductField.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.AddProductField.Location = new System.Drawing.Point(15, 69);
             this.AddProductField.Name = "AddProductField";
-            this.AddProductField.Size = new System.Drawing.Size(295, 34);
+            this.AddProductField.Size = new System.Drawing.Size(283, 34);
             this.AddProductField.TabIndex = 27;
             // 
             // AddProductLabel
@@ -327,13 +334,14 @@
             this.ClearCartBtn.TabIndex = 17;
             this.ClearCartBtn.Text = "Clear Cart";
             this.ClearCartBtn.UseVisualStyleBackColor = false;
+            this.ClearCartBtn.Click += new System.EventHandler(this.ClearCartBtn_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.label2.Font = new System.Drawing.Font("Segoe UI Black", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(699, 606);
+            this.label2.Location = new System.Drawing.Point(683, 606);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 38);
             this.label2.TabIndex = 18;
@@ -342,11 +350,65 @@
             // TotalTextBox
             // 
             this.TotalTextBox.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.TotalTextBox.Location = new System.Drawing.Point(830, 606);
+            this.TotalTextBox.Location = new System.Drawing.Point(795, 606);
             this.TotalTextBox.Name = "TotalTextBox";
             this.TotalTextBox.ReadOnly = true;
-            this.TotalTextBox.Size = new System.Drawing.Size(125, 38);
+            this.TotalTextBox.Size = new System.Drawing.Size(164, 38);
             this.TotalTextBox.TabIndex = 19;
+            // 
+            // CartGridView
+            // 
+            this.CartGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CartGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.CartGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CartGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.serial_no,
+            this.productName,
+            this.price,
+            this.quantity,
+            this.subTotal});
+            this.CartGridView.Location = new System.Drawing.Point(604, 81);
+            this.CartGridView.Name = "CartGridView";
+            this.CartGridView.ReadOnly = true;
+            this.CartGridView.RowHeadersWidth = 51;
+            this.CartGridView.RowTemplate.Height = 29;
+            this.CartGridView.Size = new System.Drawing.Size(645, 422);
+            this.CartGridView.TabIndex = 20;
+            // 
+            // serial_no
+            // 
+            this.serial_no.HeaderText = "S/N";
+            this.serial_no.MinimumWidth = 6;
+            this.serial_no.Name = "serial_no";
+            this.serial_no.ReadOnly = true;
+            // 
+            // productName
+            // 
+            this.productName.HeaderText = "Name";
+            this.productName.MinimumWidth = 6;
+            this.productName.Name = "productName";
+            this.productName.ReadOnly = true;
+            // 
+            // price
+            // 
+            this.price.HeaderText = "Unit Price(#)";
+            this.price.MinimumWidth = 6;
+            this.price.Name = "price";
+            this.price.ReadOnly = true;
+            // 
+            // quantity
+            // 
+            this.quantity.HeaderText = "Quantity";
+            this.quantity.MinimumWidth = 6;
+            this.quantity.Name = "quantity";
+            this.quantity.ReadOnly = true;
+            // 
+            // subTotal
+            // 
+            this.subTotal.HeaderText = "Sub Total(#)";
+            this.subTotal.MinimumWidth = 6;
+            this.subTotal.Name = "subTotal";
+            this.subTotal.ReadOnly = true;
             // 
             // CheckOutUI
             // 
@@ -354,6 +416,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1256, 721);
+            this.Controls.Add(this.CartGridView);
             this.Controls.Add(this.TotalTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ClearCartBtn);
@@ -361,7 +424,7 @@
             this.Controls.Add(this.AdminBox);
             this.Controls.Add(this.Cart);
             this.Controls.Add(this.ProductList);
-            this.Controls.Add(this.EnterItem);
+            this.Controls.Add(this.AddProdToCart);
             this.Controls.Add(this.DisplayCount);
             this.Controls.Add(this.LoginMessage);
             this.Controls.Add(this.PrintReceipt);
@@ -375,6 +438,7 @@
             this.Text = "Form2";
             this.AdminBox.ResumeLayout(false);
             this.AdminBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CartGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,13 +455,13 @@
         private Button PrintReceipt;
         private TextBox LoginMessage;
         private TextBox DisplayCount;
-        private Button EnterItem;
+        private Button AddProdToCart;
         private RichTextBox ProductList;
         private Label Cart;
         private GroupBox AdminBox;
         private TextBox ProductPriceField;
         private TextBox AddREmoveDisplay;
-        private Button AddRemoveBtn;
+        private Button AddProductBtn;
         private Button RemoveProductField;
         private Button AddItem;
         private TextBox AddProductField;
@@ -409,5 +473,11 @@
         private Button ClearCartBtn;
         private Label label2;
         private TextBox TotalTextBox;
+        private DataGridView CartGridView;
+        private DataGridViewTextBoxColumn serial_no;
+        private DataGridViewTextBoxColumn productName;
+        private DataGridViewTextBoxColumn price;
+        private DataGridViewTextBoxColumn quantity;
+        private DataGridViewTextBoxColumn subTotal;
     }
 }

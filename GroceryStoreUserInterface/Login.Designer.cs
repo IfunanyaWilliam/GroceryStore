@@ -53,7 +53,6 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(497, 415);
             this.panel.TabIndex = 0;
-            this.panel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Paint);
             // 
             // label2
             // 
@@ -89,7 +88,6 @@
             this.Password_label.Size = new System.Drawing.Size(101, 28);
             this.Password_label.TabIndex = 3;
             this.Password_label.Text = "Password";
-            this.Password_label.Click += new System.EventHandler(this.Password_label_Click);
             // 
             // Password_Text
             // 
@@ -101,7 +99,6 @@
             this.Password_Text.PlaceholderText = "Enter Password";
             this.Password_Text.Size = new System.Drawing.Size(342, 34);
             this.Password_Text.TabIndex = 2;
-            this.Password_Text.TextChanged += new System.EventHandler(this.Password_Text_TextChanged);
             // 
             // Username_textBox
             // 
@@ -112,7 +109,6 @@
             this.Username_textBox.PlaceholderText = "Enter username";
             this.Username_textBox.Size = new System.Drawing.Size(347, 34);
             this.Username_textBox.TabIndex = 1;
-            this.Username_textBox.TextChanged += new System.EventHandler(this.Username_textBox_TextChanged);
             // 
             // label1
             // 
@@ -124,7 +120,6 @@
             this.label1.Size = new System.Drawing.Size(106, 28);
             this.label1.TabIndex = 0;
             this.label1.Text = "Username";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // errorMessage
             // 
@@ -136,7 +131,6 @@
             this.errorMessage.Size = new System.Drawing.Size(451, 39);
             this.errorMessage.TabIndex = 1;
             this.errorMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.errorMessage.TextChanged += new System.EventHandler(this.errorMessage_TextChanged);
             // 
             // Login
             // 

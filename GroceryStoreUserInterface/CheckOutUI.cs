@@ -9,6 +9,7 @@ namespace GroceryStoreUserInterface
         private readonly IStore _store;
 
         public RoleType roleType;
+        public List<Cart> CartItems { get; set; } = new List<Cart>();
 
         public int ItemCount { get; set; }
 
@@ -38,9 +39,9 @@ namespace GroceryStoreUserInterface
             AddREmoveDisplay.Text = AddREmoveDisplayCounter.ToString();
             _store = store;
             DisplayProducts();
+            CartItems.Clear();
             roleType = role;
             CheckRole();
-            //CheckOutBox.Text = Role.RoleType.Manager.ToString(); 
         }
 
 
@@ -76,7 +77,9 @@ namespace GroceryStoreUserInterface
         private void DisplayProducts()
         {
             string displayText = "";
-            foreach (Product product in _store.Products)
+            DatabaseObject.Products.Clear();
+            DatabaseObject.GeAlltProduct();
+            foreach (Product product in DatabaseObject.Products)
             {
                 if(product.Quantity <= 0)
                 {
@@ -98,33 +101,84 @@ namespace GroceryStoreUserInterface
             AddREmoveDisplay.Text = AddREmoveDisplayCounter.ToString();
         }
 
-        private void EnterItem_Click(object sender, EventArgs e)
+        private void AddProdToCart_Click(object sender, EventArgs e)
         {
             //CheckOutBox
-            var cartitem = _store.CartItems;
             string name = "";
             decimal itemPrice = 0;
-            int quantity = 0;
+            int quantity;
             decimal subTotal = 0;
-            int checkOutItemCount = 0;
-            string displayCartText = "";
+            int seriallNo = 1;
+            
 
-            foreach (Product product in _store.Products)
+            foreach (Product prod in _store.Products)
             {
-                //displayText += $"Name: {product.Name} \n Price: #{product.Price} \n Quantity: {product.Quantity} \n Id: {product.Id}\n\n";
-                if(product.Id == Product_Id.Text)
+                if(prod.Id == Product_Id.Text)
                 {
+                    quantity = Convert.ToInt32(DisplayCount.Text);
+                    subTotal = itemPrice * quantity;
+                    int newQuantity = prod.Quantity - quantity;
                     
-                    
-                    quantity    = Convert.ToInt32(DisplayCount.Text);
+                    bool prodUpdate = DatabaseObject.UpdateProdQuantity(prod.Id, newQuantity);
+                    if (prodUpdate)
+                    {
+                        AddProductsToCarts(prod, quantity);
+                        DisplayCartItems();
+                        TotalTextBox.Text = CalculateTotal();
+
+                    }
+                    //DisplayProducts();
                 }
-                subTotal = product.Price * quantity;
-                displayCartText = $"{checkOutItemCount} \t {name} \t {itemPrice} \t {subTotal}";
+                
+
             }
-            CheckOutBox.Text = displayCartText;
+
+            DisplayProducts();
             DisplayCount.Text = "";
             Product_Id.Text = "";
             ItemCount = 0;
+            seriallNo++;
+            
+        }
+
+        public string CalculateTotal()
+        {
+            var total = CartItems.Sum( s => s.SubTotal);
+            return "# " + total.ToString();
+        }
+
+        public void AddProductsToCarts(Product prod, int quantity)
+        {
+            var checkCart = CartItems.Find(k =>k.Id == prod.Id);
+            if (checkCart == null)
+            {
+                CartItems.Add(
+                    new Cart()
+                    {
+                        Id = prod.Id,
+                        Name = prod.Name,
+                        Price = prod.Price,
+                        Quantity = quantity,
+                        SubTotal = quantity * prod.Price
+                    });
+            }
+            else
+            {
+                checkCart.Quantity += quantity;
+                checkCart.SubTotal = checkCart.Quantity * checkCart.Price;
+            }
+        }
+
+        public void DisplayCartItems()
+        {
+            CartGridView.Rows.Clear();
+            int serialNum = 1;
+            foreach(Cart cart in CartItems)
+            {
+                CartGridView.Rows.Add(serialNum, cart.Name, cart.Price, cart.Quantity, cart.SubTotal);
+                serialNum++;
+            }
+            
         }
 
         private void AddREmoveDisplay_TextChanged(object sender, EventArgs e)
@@ -186,24 +240,6 @@ namespace GroceryStoreUserInterface
 
         }
 
-        private void AddRemoveBtn_Click_2(object sender, EventArgs e)
-        {
-            if(AddREmoveDisplay.Text == "" || ProductPriceField.Text == "")
-            {
-                MessageBox.Show("Pleaase add product Price or Quantity");
-                ProductPriceField.Focus();  
-            }
-            else
-            {
-                var productId = _store.AddStockToProduct(AddProductField.Text, decimal.Parse(ProductPriceField.Text), int.Parse(AddREmoveDisplay.Text));
-                DisplayProducts();
-                DatabaseObject.AddNewProduct(productId);
-                AddProductField.Text = "";
-                AddREmoveDisplay.Text = "";
-                ProductPriceField.Text = "";
-            }
-        }
-
         private void RemoveProductField_Click_2(object sender, EventArgs e)
         {
             AddREmoveDisplayCounter--;
@@ -224,25 +260,51 @@ namespace GroceryStoreUserInterface
 
         private void RemoveProductBtn_Click_1(object sender, EventArgs e)
         {
-            _store.RemoveProduct(RemoveProductBox.Text);
-            DisplayProducts();
+            //_store.RemoveProduct(RemoveProductBox.Text);
+            DatabaseObject.RemoveProduct(RemoveProductBox.Text);
             RemoveProductBox.Text = "";
+            DisplayProducts();
+            MessageBox.Show("Product has been removed from Stock");
         }
 
 
         private void LogOutBtn_Click(object sender, EventArgs e)
         {
-            string message = "Ensure you have printed receipt for the purchased items\n" +
-                             "OR you have retured the items to stock by clearing cart\n" +
-                             "Do you still want to Log Out";
-            string title = "Log out Warning";
-            MessageBoxButtons button = MessageBoxButtons.YesNo;
-            DialogResult result = MessageBox.Show(message, title, button);
-            if (result == DialogResult.Yes)
+            ClearCart();
+            this.Close();
+        }
+
+        private void ClearCartBtn_Click(object sender, EventArgs e)
+        {
+            ClearCart();
+        }
+
+        public void ClearCart()
+        {
+            if (CartGridView.Rows.Count > 1 && CartGridView.Rows != null)
             {
-                this.Close();
+                //MessageBox.Show(this.Name);
+                foreach (var cart in CartItems)
+                {
+                    var prodIndex = DatabaseObject.Products.FindIndex((data) => data.Id == cart.Id);
+                    var quantity = DatabaseObject.Products[prodIndex].Quantity + cart.Quantity;
+                    DatabaseObject.UpdateProdQuantity(cart.Id, quantity);
+                }
+                DisplayProducts();
+                CartItems.Clear();
+                TotalTextBox.Text = "";
+                CartGridView.Rows.Clear();
             }
-           
+        }
+
+        private void AddProductBtn_Click_2(object sender, EventArgs e)
+        {
+            var prod = new Product(AddProductField.Text, int.Parse(AddREmoveDisplay.Text)) { Price = (decimal.Parse(ProductPriceField.Text)) };
+            DatabaseObject.AddNewProduct(prod);
+            DisplayProducts();
+            AddProductField.Text = "";
+            AddREmoveDisplay.Text = "";
+            ProductPriceField.Text = "";
         }
 
 
@@ -257,15 +319,15 @@ namespace GroceryStoreUserInterface
         //}
 
         ////Add new product with Name, Quantity, Price. Call DisplayProduct() to display updated list of Product
-        //private void AddRemoveBtn_Click(object sender, EventArgs e)
+        //private void AddProductBtn_Click(object sender, EventArgs e)
         //{
 
-        //    //var prod = new Product(AddProductField.Text, int.Parse(AddREmoveDisplay.Text)) { Price = (decimal.Parse(ProductPriceField.Text)) };
-        //    //_store.Products.Add(prod);
-        //    //DisplayProducts();
-        //    //AddProductField.Text = "";
-        //    //AddREmoveDisplay.Text = "";
-        //    //ProductPriceField.Text = "";
+        //    var prod = new Product(AddProductField.Text, int.Parse(AddREmoveDisplay.Text)) { Price = (decimal.Parse(ProductPriceField.Text)) };
+        //    _store.Products.Add(prod);
+        //    DisplayProducts();
+        //    AddProductField.Text = "";
+        //    AddREmoveDisplay.Text = "";
+        //    ProductPriceField.Text = "";
 
 
         //}
