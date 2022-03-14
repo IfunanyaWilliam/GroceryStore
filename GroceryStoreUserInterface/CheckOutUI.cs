@@ -1,5 +1,6 @@
 ﻿using GroceryStore;
 using GroceryStore.Contracts;
+using System.IO;
 
 
 namespace GroceryStoreUserInterface
@@ -110,7 +111,6 @@ namespace GroceryStoreUserInterface
             decimal subTotal = 0;
             int seriallNo = 1;
             
-
             foreach (Product prod in _store.Products)
             {
                 if(prod.Id == Product_Id.Text)
@@ -119,18 +119,13 @@ namespace GroceryStoreUserInterface
                     subTotal = itemPrice * quantity;
                     int newQuantity = prod.Quantity - quantity;
                     
-                    bool prodUpdate = DatabaseObject.UpdateProdQuantity(prod.Id, newQuantity);
-                    if (prodUpdate)
-                    {
-                        AddProductsToCarts(prod, quantity);
-                        DisplayCartItems();
-                        TotalTextBox.Text = CalculateTotal();
+                    DatabaseObject.UpdateProdQuantity(prod.Id, newQuantity);
+                    AddProductsToCarts(prod, quantity);
+                    DisplayCartItems();
+                    TotalTextBox.Text = CalculateTotal();
 
-                    }
-                    //DisplayProducts();
                 }
                 
-
             }
 
             DisplayProducts();
@@ -144,7 +139,7 @@ namespace GroceryStoreUserInterface
         public string CalculateTotal()
         {
             var total = CartItems.Sum( s => s.SubTotal);
-            return "# " + total.ToString();
+            return "#" + total.ToString();
         }
 
         public void AddProductsToCarts(Product prod, int quantity)
@@ -305,6 +300,30 @@ namespace GroceryStoreUserInterface
             AddProductField.Text = "";
             AddREmoveDisplay.Text = "";
             ProductPriceField.Text = "";
+        }
+
+        private void PrintReceipt_Click(object sender, EventArgs e)
+        {
+            if(CartGridView.Rows.Count > 1 && CartGridView.Rows != null)
+            {
+                using (StreamWriter sw = new StreamWriter("Receipt.txt"))
+                {
+                    sw.WriteLine($"Products Purchased in XYZ Store on: {DateTime.UtcNow}");
+                    sw.WriteLine($"Name\t\t Quantity\t\t Sub Total");
+                    foreach (var item in CartItems)
+                    {
+                        sw.WriteLine($"{item.Name} \t\t {item.Quantity} \t\t {item.SubTotal}" );
+                    }
+                    sw.WriteLine($"Total: {TotalTextBox.Text}");
+                    sw.Flush();
+                    sw.Close();
+                }
+                MessageBox.Show("Receipt generated");
+                DisplayProducts();
+                CartItems.Clear();
+                TotalTextBox.Text = "";
+                CartGridView.Rows.Clear();
+            }
         }
 
 

@@ -138,6 +138,7 @@
             this.PrintReceipt.TabIndex = 6;
             this.PrintReceipt.Text = "Print Receipt";
             this.PrintReceipt.UseVisualStyleBackColor = false;
+            this.PrintReceipt.Click += new System.EventHandler(this.PrintReceipt_Click);
             // 
             // LoginMessage
             // 

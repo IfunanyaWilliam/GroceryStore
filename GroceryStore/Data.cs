@@ -133,26 +133,18 @@ namespace GroceryStore
             }
         }
 
-        public bool UpdateProdQuantity(string id, int quantity)
+        public void UpdateProdQuantity(string id, int quantity)
         {
             string updateProd = $"update tblProduct set Quantity = @Quantity where Id = @Id";
-            try
-            {
-                using (conn = new SqlConnection(_connString))
-                {
-                    com = new SqlCommand(updateProd, conn);
-                    com.Parameters.AddWithValue("@Quantity", quantity);
-                    com.Parameters.AddWithValue("@Id", id);
-                    conn.Open();
-                    com.ExecuteNonQuery();
-                }
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
+            
+              using (conn = new SqlConnection(_connString))
+              {
+                  com = new SqlCommand(updateProd, conn);
+                  com.Parameters.AddWithValue("@Quantity", quantity);
+                  com.Parameters.AddWithValue("@Id", id);
+                  conn.Open();
+                  com.ExecuteNonQuery();
+              }
         }
 
     }
